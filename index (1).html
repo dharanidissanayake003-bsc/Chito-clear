@@ -1,0 +1,427 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Chito-Clear | Circular Bio-Innovation</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        /* --- MODERN CSS STYLES --- */
+        :root {
+            --primary: #0F766E; /* Teal */
+            --primary-dark: #134e4a;
+            --secondary: #0EA5E9; /* Sky Blue */
+            --dark: #0F172A; /* Navy */
+            --light: #F1F5F9; /* Slate White */
+            --accent: #F59E0B; /* Amber */
+            --grey: #94a3b8;
+        }
+
+        html { scroll-behavior: smooth; }
+        * { margin: 0; padding: 0; box-sizing: border-box; font-family: 'Segoe UI', system-ui, sans-serif; }
+        body { background: var(--light); color: var(--dark); line-height: 1.7; }
+        
+        /* Navigation */
+        nav { 
+            display: flex; justify-content: space-between; align-items: center; 
+            padding: 1.2rem 8%; background: rgba(255, 255, 255, 0.95); 
+            backdrop-filter: blur(10px); box-shadow: 0 4px 20px rgba(0,0,0,0.05); 
+            position: sticky; top: 0; z-index: 1000; 
+        }
+        .logo { font-size: 1.8rem; font-weight: 800; color: var(--primary); letter-spacing: -1px; }
+        .logo span { color: var(--secondary); }
+        .nav-links a { 
+            text-decoration: none; color: var(--dark); margin-left: 2.5rem; 
+            font-weight: 600; font-size: 0.95rem; transition: color 0.3s; 
+        }
+        .nav-links a:hover { color: var(--primary); }
+        
+        /* Hero Section */
+        header { 
+            height: 95vh; 
+            background: linear-gradient(135deg, rgba(15, 23, 42, 0.9), rgba(15, 118, 110, 0.8)), url('https://images.unsplash.com/photo-1451187580459-43490279c0fa?auto=format&fit=crop&q=80'); 
+            background-size: cover; background-position: center; background-attachment: fixed;
+            display: flex; flex-direction: column; justify-content: center; align-items: center; 
+            text-align: center; color: white; padding: 0 1rem;
+        }
+        header h1 { font-size: 4rem; line-height: 1.1; margin-bottom: 1.5rem; font-weight: 800; }
+        header p { font-size: 1.25rem; max-width: 700px; margin-bottom: 2.5rem; opacity: 0.9; font-weight: 300; }
+        .hero-btn { 
+            background: var(--secondary); color: white; padding: 1rem 3rem; 
+            border-radius: 50px; text-decoration: none; font-size: 1.1rem; 
+            font-weight: bold; transition: all 0.3s ease; box-shadow: 0 10px 25px rgba(14, 165, 233, 0.4); 
+        }
+        .hero-btn:hover { transform: translateY(-3px); box-shadow: 0 15px 35px rgba(14, 165, 233, 0.6); }
+
+        /* Sections */
+        section { padding: 5rem 10%; }
+        h2 { font-size: 2.5rem; margin-bottom: 1rem; text-align: center; color: var(--primary-dark); font-weight: 800; }
+        .section-subtitle { text-align: center; margin-bottom: 4rem; color: #64748b; font-size: 1.1rem; max-width: 800px; margin-left: auto; margin-right: auto; }
+
+        /* Problem & Solution */
+        .grid-2 { display: grid; grid-template-columns: 1fr 1fr; gap: 4rem; align-items: center; }
+        .content-box h3 { font-size: 1.5rem; margin-bottom: 0.5rem; color: var(--dark); }
+        .content-box p { color: #475569; margin-bottom: 1.5rem; }
+        .highlight-box { 
+            background: white; padding: 2rem; border-radius: 20px; 
+            box-shadow: 0 10px 30px rgba(0,0,0,0.05); border-left: 5px solid var(--secondary); 
+            height: 100%;
+        }
+        .stat-big { font-size: 3rem; font-weight: 800; color: var(--secondary); display: block; line-height: 1; }
+        .visual-container {
+            border-radius: 20px; overflow: hidden; box-shadow: 0 20px 40px rgba(0,0,0,0.1);
+            height: 400px;
+        }
+        .visual-container img { width: 100%; height: 100%; object-fit: cover; }
+        
+        /* --- TECH SECTION STYLES (UPDATED) --- */
+        .tech-bg { background: var(--dark); color: white; position: relative; overflow: hidden; }
+        .tech-bg h2 { color: white; }
+        .tech-bg .section-subtitle { color: #94a3b8; }
+        
+        /* Process Flow - "How it Works" */
+        .process-grid {
+            display: grid; grid-template-columns: repeat(auto-fit, minmax(220px, 1fr)); 
+            gap: 2rem; margin-bottom: 4rem; position: relative;
+        }
+        .process-card {
+            background: rgba(255,255,255,0.03); padding: 2rem; border-radius: 16px;
+            border: 1px solid rgba(255,255,255,0.1); text-align: center;
+            transition: transform 0.3s;
+        }
+        .process-card:hover { transform: translateY(-10px); background: rgba(255,255,255,0.07); }
+        .process-icon {
+            font-size: 2.5rem; color: var(--secondary); margin-bottom: 1.5rem;
+            height: 70px; width: 70px; line-height: 70px; background: rgba(14, 165, 233, 0.1);
+            border-radius: 50%; display: inline-block;
+        }
+        .process-title { font-weight: 700; margin-bottom: 1rem; color: white; }
+        .process-text { font-size: 0.9rem; color: #cbd5e1; line-height: 1.6; }
+        
+        /* Connecting Lines (Desktop Only) */
+        @media (min-width: 992px) {
+            .process-card::after {
+                content: '→'; position: absolute; right: -25px; top: 50%; 
+                transform: translateY(-50%); font-size: 2rem; color: rgba(255,255,255,0.2);
+            }
+            .process-card:last-child::after { content: ''; }
+        }
+
+        /* Dashboard Simulation */
+        .dashboard-grid { 
+            display: grid; grid-template-columns: repeat(auto-fit, minmax(260px, 1fr)); gap: 1.5rem; 
+            background: rgba(255,255,255,0.05); padding: 2rem; border-radius: 24px;
+            border: 1px solid rgba(255,255,255,0.1); backdrop-filter: blur(10px);
+        }
+        .dash-card { 
+            background: rgba(0,0,0,0.3); padding: 1.5rem; border-radius: 16px; 
+            transition: transform 0.3s; position: relative; overflow: hidden;
+        }
+        .dash-card:hover { transform: translateY(-5px); background: rgba(0,0,0,0.4); }
+        .dash-card::before { content: ''; position: absolute; top: 0; left: 0; width: 4px; height: 100%; background: var(--secondary); }
+        .dash-label { font-size: 0.85rem; color: #94a3b8; text-transform: uppercase; letter-spacing: 1px; margin-bottom: 0.5rem; }
+        .dash-value { font-size: 2.2rem; font-weight: 700; font-family: 'Courier New', monospace; color: white; }
+        .live-dot { height: 8px; width: 8px; background: #22c55e; border-radius: 50%; display: inline-block; margin-right: 6px; box-shadow: 0 0 10px #22c55e; animation: pulse 1.5s infinite; }
+
+        /* Technical Specs Box */
+        .tech-specs {
+            margin-top: 3rem; border-top: 1px solid rgba(255,255,255,0.1); padding-top: 2rem;
+            text-align: center; color: #64748b; font-size: 0.9rem;
+        }
+        .tech-tag {
+            display: inline-block; padding: 5px 15px; margin: 5px; 
+            background: rgba(255,255,255,0.1); border-radius: 20px; color: #cbd5e1;
+        }
+
+        /* Comparison Chart Styles */
+        .chart-container {
+            display: flex; justify-content: space-around; flex-wrap: wrap; gap: 2rem; margin-top: 3rem;
+        }
+        .chart-box {
+            background: white; padding: 2.5rem 2rem; border-radius: 20px;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.05); flex: 1; min-width: 280px; text-align: center;
+        }
+        .chart-box h3 { font-size: 1.1rem; margin-bottom: 2rem; color: var(--dark); font-weight: 700; }
+        .bar-group {
+            display: flex; align-items: flex-end; justify-content: space-around;
+            height: 220px; border-bottom: 2px solid #e2e8f0; position: relative; margin-bottom: 1.5rem;
+        }
+        .bar {
+            width: 35%; border-radius: 8px 8px 0 0; position: relative;
+            transition: height 1.5s ease-out; box-shadow: 0 4px 10px rgba(0,0,0,0.1);
+        }
+        .bar-alum { background: var(--grey); }
+        .bar-chito { background: linear-gradient(to top, var(--primary), var(--secondary)); }
+        .bar-label {
+            position: absolute; top: -30px; left: 50%; transform: translateX(-50%);
+            font-weight: 800; font-size: 1rem; color: var(--dark);
+        }
+        .x-axis { display: flex; justify-content: space-around; font-weight: 700; color: #64748b; }
+        .legend { display: flex; justify-content: center; gap: 2rem; margin-bottom: 2rem; }
+        .legend-item { display: flex; align-items: center; font-weight: 600; color: var(--dark); }
+        .legend-color { width: 15px; height: 15px; border-radius: 4px; margin-right: 8px; }
+
+        /* Impact Section */
+        .impact-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); gap: 2rem; }
+        .impact-card { 
+            background: white; padding: 2.5rem; border-radius: 20px; text-align: center;
+            transition: all 0.3s; border: 1px solid #e2e8f0;
+        }
+        .impact-card:hover { border-color: var(--primary); box-shadow: 0 10px 30px rgba(15, 118, 110, 0.1); transform: translateY(-5px); }
+        .icon-box { 
+            width: 70px; height: 70px; background: #ecfdf5; color: var(--primary); 
+            border-radius: 14px; display: flex; align-items: center; justify-content: center; 
+            font-size: 1.8rem; margin: 0 auto 1.5rem; box-shadow: 0 5px 15px rgba(15, 118, 110, 0.15);
+        }
+
+        /* Footer */
+        footer { background: var(--dark); color: #94a3b8; padding: 4rem 10%; text-align: center; }
+        footer .logo { color: white; margin-bottom: 1rem; display: inline-block; }
+        footer p { font-size: 0.9rem; opacity: 0.8; }
+
+        @keyframes pulse { 0% { opacity: 1; } 50% { opacity: 0.3; } 100% { opacity: 1; } }
+        
+        @media (max-width: 768px) {
+            header h1 { font-size: 2.5rem; }
+            .grid-2 { grid-template-columns: 1fr; }
+            .nav-links { display: none; }
+            section { padding: 4rem 5%; }
+            .visual-container { height: 250px; }
+            .process-card::after { display: none; }
+        }
+    </style>
+</head>
+<body>
+
+    <nav>
+        <div class="logo">Chito<span>Clear</span></div>
+        <div class="nav-links">
+            <a href="#problem">The Crisis</a>
+            <a href="#tech">Our Tech</a>
+            <a href="#performance">Performance</a>
+            <a href="#impact">Business Impact</a>
+        </div>
+    </nav>
+
+    <header>
+        <h1>Revolutionizing Industrial Water.<br>Powering the Circular Economy.</h1>
+        <p>An advanced bio-refinery solution that combines deep-tech chemistry with AI-driven precision to transform hazardous sludge into clean energy.</p>
+        <a href="#tech" class="hero-btn">Explore the Technology</a>
+    </header>
+
+    <section id="problem">
+        <h2>The Industrial Dilemma</h2>
+        <p class="section-subtitle">Current water treatment methods solve one problem but create a bigger, more expensive environmental crisis.</p>
+        
+        <div class="grid-2">
+            <div class="content-box">
+                <div class="highlight-box">
+                    <h3>The Alum "Dead End"</h3>
+                    <p>Industry's reliance on metallic salts (Alum) generates massive volumes of toxic, inorganic sludge. This "wet ash" has no fuel value and must be landfilled at great cost.</p>
+                    <span class="stat-big">Zero</span>
+                    <p style="margin-top:-10px; font-size: 0.9rem; opacity: 0.7;">Energy recovery potential from existing methods.</p>
+                </div>
+            </div>
+            <div class="content-box">
+                <div class="visual-container">
+                    <img src="https://images.unsplash.com/photo-1611273426858-450d8e3c9f9d?auto=format&fit=crop&q=80" alt="Industrial Water Treatment">
+                </div>
+            </div>
+        </div>
+        <div class="grid-2" style="margin-top: 4rem;">
+             <div class="content-box">
+                <div class="visual-container">
+                    <img src="https://images.unsplash.com/photo-1532601224476-15c79f2f7a51?auto=format&fit=crop&q=80" alt="Clean Chemistry">
+                </div>
+            </div>
+            <div class="content-box">
+                <div class="highlight-box" style="border-left-color: var(--primary);">
+                    <h3>The Chito-Clear Breakthrough</h3>
+                    <p>We utilize <strong>Chitosan</strong>—a powerful biopolymer sourced from seafood waste. It clears water effectively while creating a <strong>100% organic, combustible biomass</strong>.</p>
+                    <span class="stat-big">FUEL</span>
+                    <p style="margin-top:-10px; font-size: 0.9rem; opacity: 0.7;">Turning a disposal liability into an energy asset.</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section id="tech" class="tech-bg">
+        <h2>Smart Eye Integration</h2>
+        <p class="section-subtitle">How we automate the treatment process to eliminate human error and maximize efficiency.</p>
+        
+        <div class="process-grid">
+            <div class="process-card">
+                <div class="process-icon"><i class="fa-solid fa-eye"></i></div>
+                <h3 class="process-title">1. Sense</h3>
+                <p class="process-text">Optical turbidity sensors constantly monitor the "cloudiness" of the incoming wastewater stream in real-time.</p>
+            </div>
+            <div class="process-card">
+                <div class="process-icon"><i class="fa-solid fa-microchip"></i></div>
+                <h3 class="process-title">2. Analyze</h3>
+                <p class="process-text">Our "Edge AI" unit (ESP32) analyzes the sensor data to calculate the exact milligram dosage of Chitosan needed.</p>
+            </div>
+            <div class="process-card">
+                <div class="process-icon"><i class="fa-solid fa-gears"></i></div>
+                <h3 class="process-title">3. Act</h3>
+                <p class="process-text">Precision peristaltic pumps inject the specific amount of bio-coagulant. This prevents costly overdosing.</p>
+            </div>
+            <div class="process-card">
+                <div class="process-icon"><i class="fa-solid fa-cloud-arrow-up"></i></div>
+                <h3 class="process-title">4. Verify</h3>
+                <p class="process-text">Every liter treated is logged to the cloud, creating a "Green Passport" that proves environmental compliance.</p>
+            </div>
+        </div>
+
+        <h3 style="text-align:center; color:white; margin-bottom: 1rem;">Live System Dashboard</h3>
+        <div class="dashboard-grid">
+            <div class="dash-card">
+                <div class="dash-label"><span class="live-dot"></span> Input Turbidity</div>
+                <div class="dash-value" id="turbidityVal">142 NTU</div>
+                <p style="font-size: 0.8rem; color: #94a3b8; margin-top: 5px;">Measuring water clarity</p>
+            </div>
+            
+            <div class="dash-card" style="border-left-color: #F59E0B;">
+                <div class="dash-label"><span class="live-dot"></span> AI Dosing Rate</div>
+                <div class="dash-value" id="dosingVal">12.5 mg/L</div>
+                <p style="font-size: 0.8rem; color: #94a3b8; margin-top: 5px;">Auto-adjusted by Algorithm</p>
+            </div>
+
+            <div class="dash-card" style="border-left-color: #22c55e;">
+                <div class="dash-label">Biomass Fuel Gen</div>
+                <div class="dash-value">4.2 kg</div>
+                <p style="font-size: 0.8rem; color: #94a3b8; margin-top: 5px;">Estimated Sludge Output</p>
+            </div>
+            
+            <div class="dash-card" style="border-left-color: #a855f7;">
+                <div class="dash-label">Carbon Offset</div>
+                <div class="dash-value">-120 kg</div>
+                <p style="font-size: 0.8rem; color: #94a3b8; margin-top: 5px;">CO2 Equivalent Reduced</p>
+            </div>
+        </div>
+
+        <div class="tech-specs">
+            <p style="margin-bottom: 10px;">HARDWARE SPECIFICATIONS</p>
+            <span class="tech-tag">ESP32-WROOM Controller</span>
+            <span class="tech-tag">TS-300B Turbidity Sensor</span>
+            <span class="tech-tag">12V Peristaltic Dosing Pump</span>
+            <span class="tech-tag">MQTT / REST API Connectivity</span>
+        </div>
+    </section>
+
+    <section id="performance" style="background: #f8fafc;">
+        <h2>Why Chito-Clear is Superior</h2>
+        <p class="section-subtitle">Data-driven proof of how our bio-coagulant outperforms traditional chemical methods across key environmental and energy metrics.</p>
+        
+        <div class="legend">
+            <div class="legend-item"><div class="legend-color bar-alum"></div>Traditional Alum</div>
+            <div class="legend-item"><div class="legend-color bar-chito"></div>Chito-Clear Solution</div>
+        </div>
+
+        <div class="chart-container">
+            <div class="chart-box">
+                <h3>Sludge Volume Reduction</h3>
+                <div class="bar-group">
+                    <div class="bar bar-alum" style="height: 100%;">
+                        <span class="bar-label">100%</span>
+                    </div>
+                    <div class="bar bar-chito" style="height: 55%;">
+                        <span class="bar-label">~55%</span>
+                    </div>
+                </div>
+                <div class="x-axis">
+                    <span>Alum</span><span>Chitosan</span>
+                </div>
+                <p style="margin-top: 1rem; font-size: 0.9rem; color: #64748b;">Significant reduction in waste volume to be handled.</p>
+            </div>
+
+            <div class="chart-box">
+                <h3>Calorific Value (Energy)</h3>
+                <div class="bar-group">
+                    <div class="bar bar-alum" style="height: 73%;">
+                        <span class="bar-label">13.5 MJ</span>
+                    </div>
+                    <div class="bar bar-chito" style="height: 100%;">
+                        <span class="bar-label">18.5 MJ</span>
+                    </div>
+                </div>
+                <div class="x-axis">
+                    <span>Alum</span><span>Chitosan</span>
+                </div>
+                <p style="margin-top: 1rem; font-size: 0.9rem; color: #64748b;">Higher energy content makes it a viable fuel source.</p>
+            </div>
+
+            <div class="chart-box">
+                <h3>Biomethane Potential</h3>
+                <div class="bar-group">
+                    <div class="bar bar-alum" style="height: 61%;">
+                        <span class="bar-label">165 mL</span>
+                    </div>
+                    <div class="bar bar-chito" style="height: 100%;">
+                        <span class="bar-label">270 mL</span>
+                    </div>
+                </div>
+                <div class="x-axis">
+                    <span>Alum</span><span>Chitosan</span>
+                </div>
+                <p style="margin-top: 1rem; font-size: 0.9rem; color: #64748b;">Superior for anaerobic digestion and energy recovery.</p>
+            </div>
+        </div>
+    </section>
+
+    <section id="impact">
+        <h2>A Scalable Business Model</h2>
+        <p class="section-subtitle">Built on the principles of the Circular Economy, creating value from waste streams.</p>
+        
+        <div class="impact-grid">
+            <div class="impact-card">
+                <div class="icon-box">💧</div>
+                <h3>Cost-Effective Treatment</h3>
+                <p>Leveraging locally abundant waste materials to provide a competitively priced alternative to imported chemicals.</p>
+            </div>
+            <div class="impact-card">
+                <div class="icon-box">🔥</div>
+                <h3>New Revenue Stream</h3>
+                <p>Transforming sludge disposal costs into a revenue stream by selling high-calorific biomass to cement kilns.</p>
+            </div>
+            <div class="impact-card">
+                <div class="icon-box">🌍</div>
+                <h3>Verified Sustainability</h3>
+                <p>Our digital platform provides transparent data for industries seeking "Zero Discharge" and ESG certification.</p>
+            </div>
+        </div>
+    </section>
+
+    <footer>
+        <div class="logo">Chito<span>Clear</span></div>
+        <p>&copy; 2026 Chito-Clear Project. All rights reserved.</p>
+        <p style="margin-top: 0.5rem;">Innovating for a sustainable industrial future.</p>
+    </footer>
+
+    <script>
+        function updateDashboard() {
+            // Simulate fluctuating water quality
+            const turb = 140 + Math.floor(Math.random() * 15);
+            document.getElementById('turbidityVal').innerText = turb + " NTU";
+
+            // AI Logic Simulation: Higher turbidity = slightly higher dose
+            const dose = (turb * 0.085).toFixed(1);
+            document.getElementById('dosingVal').innerText = dose + " mg/L";
+        }
+        // Start the simulation
+        setInterval(updateDashboard, 2000);
+        
+        // Animate charts on load
+        window.onload = function() {
+            const bars = document.querySelectorAll('.bar');
+            bars.forEach(bar => {
+                let height = bar.style.height;
+                bar.style.height = '0';
+                setTimeout(() => {
+                    bar.style.height = height;
+                }, 100);
+            });
+        };
+    </script>
+
+</body>
+</html>
